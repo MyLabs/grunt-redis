@@ -59,6 +59,12 @@ module.exports = function(grunt) {
                 promises.push(Q.ninvoke(client, "set", key, grunt.file.read(filepath)).then(function(){
                     grunt.log.debug("File uploaded " + key);
                 }));
+                
+                if(options.manifestKey) {
+                    promises.push(Q.ninvoke(client, "set", options.manifestKey, key).then(function () {
+                        grunt.log.debug("Key updated " + key);
+                    }));
+                }
             });
             
         });
